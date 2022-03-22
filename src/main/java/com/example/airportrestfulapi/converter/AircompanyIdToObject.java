@@ -1,0 +1,32 @@
+package com.example.airportrestfulapi.converter;
+
+import com.example.airportrestfulapi.model.AirCompany;
+import com.example.airportrestfulapi.service.AirCompanyService;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+/*
+* Custom controller (aircompanyId -> to aircompany object)
+* */
+public class AircompanyIdToObject implements org.springframework.core.convert.converter.Converter<Integer, AirCompany>,
+        com.fasterxml.jackson.databind.util.Converter<Integer,AirCompany> {
+
+    @Autowired
+    private AirCompanyService airCompanyService;
+
+    @Override
+    public AirCompany convert(Integer source) {
+        return airCompanyService.getCompany(source);
+    }
+
+    @Override
+    public JavaType getInputType(TypeFactory typeFactory) {
+        return typeFactory.constructType(Integer.class);
+    }
+
+    @Override
+    public JavaType getOutputType(TypeFactory typeFactory) {
+        return typeFactory.constructType(AirCompany.class);
+    }
+
+}
