@@ -1,7 +1,24 @@
-FROM maven:3.8.2-jdk-11
+FROM maven:3.8.4-jdk-11
+#
+ADD target/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
 
-WORKDIR .
-COPY . .
-RUN mvn clean install
 
-CMD mvn spring-boot:run
+
+
+
+#WORKDIR /airport
+#COPY . /airport
+#RUN mvn clean install
+#EXPOSE 8080
+#
+#CMD mvn spring-boot:run
+#
+
+
+
+
+#FROM maven:3.8.4-jdk-11-slim
+#EXPOSE 8080
+#ADD target/airportRestfulApi-0.0.1-SNAPSHOT.jar airportRestfulApi-0.0.1-SNAPSHOT.jar
+#ENTRYPOINT ["java","-jar","/airportRestfulApi-0.0.1-SNAPSHOT.jar"]
