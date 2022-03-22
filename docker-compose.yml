@@ -8,7 +8,8 @@ services:
     networks:
       - airport-mysql
     depends_on:
-      - mysqldb
+      mysqldb:
+        condition: service_healthy
 
   mysqldb:
     image: mysql
@@ -20,6 +21,8 @@ services:
       - MYSQL_DATABASE=airport
     ports:
       - 3307:3306
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=root
 
 networks:
   airport-mysql:
