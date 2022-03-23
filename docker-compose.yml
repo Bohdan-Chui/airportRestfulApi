@@ -14,7 +14,7 @@ services:
     volumes:
       - ./data:/docker-entrypoint-initdb.d
     healthcheck:
-        test: mysqladmin ping -h 127.0.0.1 -u root --password=root
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=root
 
 
   airlanesservice:
@@ -34,4 +34,3 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/airport?createDatabaseIfNotExist=true
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
-
