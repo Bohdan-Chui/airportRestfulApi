@@ -21,14 +21,9 @@ public class AirplaneService {
         this.airCompanyRepository = airCompanyRepository;
     }
 
-    public Airplane changePlaneCompany(Integer planeId, Integer destinationCompanyId) {
-        if (airplaneRepository.existsById(planeId) && airCompanyRepository.existsById(destinationCompanyId)) {
-            Airplane airplane = airplaneRepository.getById(planeId);
-            airplane.setAirCompany(airCompanyRepository.getById(destinationCompanyId));
-            airplaneRepository.save(airplane);
-            return airplane;
-        } else
-            throw new IllegalArgumentException("no entities by id in database");
+    public Airplane changePlaneCompany(Airplane planeId, AirCompany destinationCompanyId) {
+        planeId.setAirCompany(destinationCompanyId);
+        return airplaneRepository.save(planeId);
     }
 
     public Airplane saveAirpane(Airplane airplane) {

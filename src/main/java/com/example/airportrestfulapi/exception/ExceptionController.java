@@ -1,6 +1,7 @@
 package com.example.airportrestfulapi.exception;
 
 import org.springframework.core.convert.ConversionFailedException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -46,6 +47,12 @@ public class ExceptionController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConversionFailedException.class)
     public String handleConflict(RuntimeException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EmptyResultDataAccessException.class)
+    public String handleEmptyResultDataAccessException(RuntimeException ex) {
         return ex.getMessage();
     }
 }

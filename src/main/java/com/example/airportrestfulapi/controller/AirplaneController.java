@@ -1,5 +1,6 @@
 package com.example.airportrestfulapi.controller;
 
+import com.example.airportrestfulapi.model.AirCompany;
 import com.example.airportrestfulapi.model.Airplane;
 import com.example.airportrestfulapi.service.AirplaneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class AirplaneController {
     }
 
     @PatchMapping("/company/change")
-    public ResponseEntity<Airplane> changeCompany(@RequestParam("planeId") Integer planeId,
-                                                  @RequestParam("destinationCompanyId") Integer destinationCompanyId) {
+    public ResponseEntity<Airplane> changeCompany(@RequestParam("planeId") Airplane planeId,
+                                                  @RequestParam("destinationCompanyId") AirCompany destinationCompanyId) {
         return ResponseEntity
                 .ok()
                 .body(airplaneService.changePlaneCompany(planeId, destinationCompanyId));

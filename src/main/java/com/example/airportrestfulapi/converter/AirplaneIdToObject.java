@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 /*
  * Custom controller (airplaneId -> to airplane object)
  * */
-@Component
 public class AirplaneIdToObject implements org.springframework.core.convert.converter.Converter<Integer, Airplane>,
         com.fasterxml.jackson.databind.util.Converter<Integer, Airplane> {
 

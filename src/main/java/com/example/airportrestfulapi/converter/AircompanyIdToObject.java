@@ -10,9 +10,8 @@ import org.springframework.stereotype.Component;
 /*
  * Custom controller (aircompanyId -> to aircompany object)
  * */
-@Component
 public class AircompanyIdToObject implements org.springframework.core.convert.converter.Converter<Integer, AirCompany>,
-        com.fasterxml.jackson.databind.util.Converter<Integer,AirCompany> {
+        com.fasterxml.jackson.databind.util.Converter<Integer, AirCompany> {
 
     private final AirCompanyService airCompanyService;
 
