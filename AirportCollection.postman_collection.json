@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "ae5e23b9-febe-4e08-a473-dbf01d986814",
+		"name": "AirportCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SaveCompany",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\":\"6\",\n    \"name\":\"name1\",\n    \"companyType\":\"type1\",\n    \"foundedAt\":\"2002-11-11\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aircompany/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircompany",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCompanyById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircompany/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircompany",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCompany",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 2,\n    \"name\": \"VinnytsiaAir\",\n    \"companyType\": \"Regional\",\n    \"foundedAt\": \"2001-05-13\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/aircompany/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircompany",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCompany",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircompany/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircompany",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangePlaneCompany",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/airplane/change-company?planeId=2&destinationCompanyId=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airplane",
+						"change-company"
+					],
+					"query": [
+						{
+							"key": "planeId",
+							"value": "2"
+						},
+						{
+							"key": "destinationCompanyId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllCompanies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/aircompany/companies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"aircompany",
+						"companies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActiveFlightsMoreOneDay",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight/get-active-flights-more-one-day",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"get-active-flights-more-one-day"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CompanyName and Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight/get-flights-status-company?status=active&companyName=lvivair",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"get-flights-status-company"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "active"
+						},
+						{
+							"key": "companyName",
+							"value": "lvivair"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Airplane",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"An-2\",\n    \"factorySerialNumber\":\"ADS01234\",\n    \"numberOfFlights\":123,\n    \"flightDistance\":990,\n    \"fuelCapacity\":1240,\n    \"type\":\"Transport\",\n    \"createdAt\":\"1959-02-12\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/airplane/new-plane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airplane",
+						"new-plane"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Flight",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"departureCountry\":\"Ukraine\",\n    \"destinationCountry\":\"Hungury\",\n    \"distance\": 400,\n    \"estimatedFlightTime\": \"01:00\",\n    \"startedAt\":\"2022-04-20 02:00\",\n    \"endedAt\":\"2022-04-20 03:00\",\n    \"airCompany\":3,\n    \"airplane\":2\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/flight/new-flight",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"new-flight"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ChangeStatus",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/flight/status?id=100&status=COMPLETED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"flight",
+						"status"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "100"
+						},
+						{
+							"key": "status",
+							"value": "COMPLETED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Oprional",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

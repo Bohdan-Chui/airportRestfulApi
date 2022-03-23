@@ -1,28 +1,39 @@
-version: "3"
+version: '3'
 services:
-  backend:
-    image: backend
-    build: .
+  mysqldb:
+    image: mysql
+    platform: linux/x86_64
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=pass
+      - MYSQL_USER=user
+      - MYSQL_DATABASE=airport
     ports:
-      - 8000-8999:8080
-    networks:
-      - airport-mysql
+      - "3307:3306"
+#    volumes:
+#      - ~/apps/mysql:/var/lib/mysql
+#    security_opt:
+#      - seccomp:unconfined
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+  app:
+    image: testtask-docker-container
+    ports:
+      - "8080:8080"
+    environment:
+#      "spring.datasource.url"  : "jdbc:mysql://mysqldb:3307/airport?useSSL=false",
+            SPRING_APPLICATION_JSON: '{
+               "spring.datasource.url"  : "jdbc:mysql://localhost:3307/airport?useSSL=false",
+              "spring.datasource.username" : "root",
+              "spring.datasource.password" : "root",
+              "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
+              "spring.jpa.hibernate.ddl-auto" : "update"
+            }'
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
     depends_on:
       mysqldb:
         condition: service_healthy
 
-  mysqldb:
-    image: mysql
-    platform: linux/x86_64
-    networks:
-      - airport-mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=airport
-    ports:
-      - 3307:3306
-    healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -u root --password=root
-
-networks:
-  airport-mysql:
