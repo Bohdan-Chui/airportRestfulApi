@@ -13,30 +13,35 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class FlightService {
-    public static final Integer TIME_HOURS = 24;
+    private static final Integer TIME_HOURS = 24;
+
+    final FlightRepository flightRepository;
+    final AirCompanyRepository airCompanyRepository;
 
     @Autowired
-    FlightRepository flightRepository;
-    @Autowired
-    AirCompanyRepository airCompanyRepository;
+    public FlightService(FlightRepository flightRepository, AirCompanyRepository airCompanyRepository) {
+        this.flightRepository = flightRepository;
+        this.airCompanyRepository = airCompanyRepository;
+    }
 
-    public List<Flight> getFlightsByNameAndStatus(Status status, String name){
+    public List<Flight> getFlightsByNameAndStatus(Status status, String name) {
         return flightRepository.getAllByFlightStatusAndAirCompany_NameIgnoreCase(status, name);
     }
 
-    public List<Flight> getAllFlightsWhereStarusAndFlightTimeIsMoreThan(Status status){
-       return flightRepository.getAllByFlightStatus(status)
+    public List<Flight> getAllFlightsWhereStarusAndFlightTimeIsMoreThan(Status status) {
+        return flightRepository.getAllByFlightStatus(status)
                 .stream()
-                .filter(s->s.getStartedAt().until(LocalDateTime.now(), ChronoUnit.HOURS) > TIME_HOURS)
+                .filter(s -> s.getStartedAt().until(LocalDateTime.now(), ChronoUnit.HOURS) > TIME_HOURS)
                 .collect(Collectors.toList());
     }
 
-    public Flight saveFlight(Flight flight){
+    public Flight saveFlight(Flight flight) {
         flight.setFlightStatus(Status.PENDING);
         flight.setCreatedAt(LocalDateTime.now());
         return flightRepository.save(flight);
@@ -61,18 +66,18 @@ public class FlightService {
                 flight.setEndedAt(LocalDateTime.now());
                 break;
             default:
-                throw  new NoSuchElementException("That status isn`t supported");
+                throw new NoSuchElementException("That status isn`t supported");
         }
         return flightRepository.save(flight);
     }
 
-    public List<Flight> optionalTask(Status status){
-        return flightRepository.getAllByFlightStatus(status).stream()
-                .filter(s->{
-                    if(s.getStartedAt()==null || s.getEndedAt()==null || s.getEstimatedFlightTime() == null)
-                        return false;
-                    return Duration.between(s.getStartedAt(), s.getEndedAt()).compareTo(s.getEstimatedFlightTime()) > 0;
-                })
+    public List<Flight> optionalTask(Status status) {
+        return flightRepository.getAllByFlightStatus(status)
+                .stream()
+                .filter(s -> Objects.nonNull(s.getStartedAt()))
+                .filter(s -> Objects.nonNull(s.getEndedAt()))
+                .filter(s -> Objects.nonNull(s.getEstimatedFlightTime()))
+                .filter(s -> Duration.between(s.getStartedAt(), s.getEndedAt()).compareTo(s.getEstimatedFlightTime()) > 0)
                 .collect(Collectors.toList());
     }
 

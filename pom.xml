@@ -52,6 +52,12 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
 
         <!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.h2database/h2 &ndash;&gt;-->

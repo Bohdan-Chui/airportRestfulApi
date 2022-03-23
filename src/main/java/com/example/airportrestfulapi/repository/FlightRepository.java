@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface FlightRepository extends JpaRepository<Flight, Integer> {
     List<Flight> getAllByFlightStatusAndAirCompany_NameIgnoreCase(Status status, String name);
+
     List<Flight> getAllByFlightStatus(Status status);
 }

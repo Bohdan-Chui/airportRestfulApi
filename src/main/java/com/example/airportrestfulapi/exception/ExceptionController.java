@@ -1,8 +1,7 @@
-package com.example.airportrestfulapi.controller;
+package com.example.airportrestfulapi.exception;
 
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +12,9 @@ import javax.persistence.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+/*
+ * Exception handler
+ * */
 @RestControllerAdvice
 public class ExceptionController {
 
@@ -28,15 +30,16 @@ public class ExceptionController {
         });
         return errors;
     }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgumentException(IllegalArgumentException exception){
+    public String handleIllegalArgumentException(IllegalArgumentException exception) {
         return exception.getMessage();
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EntityNotFoundException.class)
-    public String handleEntityNotFoundException(EntityNotFoundException exception){
+    public String handleEntityNotFoundException(EntityNotFoundException exception) {
         return exception.getMessage();
     }
 

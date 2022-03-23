@@ -20,24 +20,25 @@ public class AirplaneService {
         this.airplaneRepository = airplaneRepository;
         this.airCompanyRepository = airCompanyRepository;
     }
-    public Airplane changePlaneCompany(Integer planeId, Integer destinationCompanyId){
-        if(airplaneRepository.existsById(planeId) && airCompanyRepository.existsById(destinationCompanyId)) {
+
+    public Airplane changePlaneCompany(Integer planeId, Integer destinationCompanyId) {
+        if (airplaneRepository.existsById(planeId) && airCompanyRepository.existsById(destinationCompanyId)) {
             Airplane airplane = airplaneRepository.getById(planeId);
-            System.out.println(airplane);
             airplane.setAirCompany(airCompanyRepository.getById(destinationCompanyId));
             airplaneRepository.save(airplane);
             return airplane;
-        }else
+        } else
             throw new IllegalArgumentException("no entities by id in database");
     }
-    public Airplane saveAirpane(Airplane airplane){
+
+    public Airplane saveAirpane(Airplane airplane) {
         return airplaneRepository.save(airplane);
     }
 
-    public Airplane getPlane(Integer id){
-        Optional<Airplane> airplaneOptional =  airplaneRepository.findById(id);
-        if(airplaneOptional.isPresent()){
+    public Airplane getPlane(Integer id) {
+        Optional<Airplane> airplaneOptional = airplaneRepository.findById(id);
+        if (airplaneOptional.isPresent()) {
             return airplaneOptional.get();
-        }else throw new EntityNotFoundException("no airplane with than id ");
+        } else throw new EntityNotFoundException("no airplane with than id ");
     }
 }

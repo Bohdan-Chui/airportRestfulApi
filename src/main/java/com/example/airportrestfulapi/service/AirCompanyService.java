@@ -13,31 +13,36 @@ import java.util.Optional;
 @Service
 public class AirCompanyService {
 
-    @Autowired
-    private AirCompanyRepository airCompanyRepository;
+    private final AirCompanyRepository airCompanyRepository;
 
-    public AirCompany saveAirCompany(AirCompany airCompany){
+    @Autowired
+    public AirCompanyService(AirCompanyRepository airCompanyRepository) {
+        this.airCompanyRepository = airCompanyRepository;
+    }
+
+    public AirCompany saveAirCompany(AirCompany airCompany) {
         return airCompanyRepository.save(airCompany);
     }
 
-    public List<AirCompany>getCompanies(){
+    public List<AirCompany> getCompanies() {
         return airCompanyRepository.findAll();
     }
 
-    public  AirCompany getCompany(Integer id){
-        Optional<AirCompany> airCompanyOptional =  airCompanyRepository.findById(id);
-        if(airCompanyOptional.isPresent()){
+    public AirCompany getCompany(Integer id) {
+        Optional<AirCompany> airCompanyOptional = airCompanyRepository.findById(id);
+        if (airCompanyOptional.isPresent()) {
             return airCompanyOptional.get();
-        }else throw new EntityNotFoundException("no airCompany with than id ");
+        } else throw new EntityNotFoundException("no airCompany with than id ");
     }
 
-    public AirCompany update(AirCompany airCompany){
-        if(airCompany == null || !airCompanyRepository.existsById(airCompany.getId())){
-            throw  new IllegalArgumentException("aircompany problem");
+    public AirCompany update(AirCompany airCompany) {
+        if (airCompany == null || !airCompanyRepository.existsById(airCompany.getId())) {
+            throw new IllegalArgumentException("aircompany problem");
         }
-        return  airCompanyRepository.save(airCompany);
+        return airCompanyRepository.save(airCompany);
     }
-    public void deleteById(Integer id){
+
+    public void deleteById(Integer id) {
         airCompanyRepository.deleteById(id);
     }
 

@@ -1,39 +1,37 @@
 version: '3'
+
 services:
-  mysqldb:
-    image: mysql
+  db:
     platform: linux/x86_64
+    image: mysql:latest
+    container_name: mysql-db2
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_PASSWORD=pass
-      - MYSQL_USER=user
       - MYSQL_DATABASE=airport
     ports:
-      - "3307:3306"
-#    volumes:
-#      - ~/apps/mysql:/var/lib/mysql
-#    security_opt:
-#      - seccomp:unconfined
+      - "3306:3306"
+    restart: always
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
     healthcheck:
-      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+        test: mysqladmin ping -h 127.0.0.1 -u root --password=root
 
-  app:
-    image: testtask-docker-container
+
+  airlanesservice:
+    image: airport
+    container_name: airlanes-service-app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
-    environment:
-#      "spring.datasource.url"  : "jdbc:mysql://mysqldb:3307/airport?useSSL=false",
-            SPRING_APPLICATION_JSON: '{
-               "spring.datasource.url"  : "jdbc:mysql://localhost:3307/airport?useSSL=false",
-              "spring.datasource.username" : "root",
-              "spring.datasource.password" : "root",
-              "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.MySQL5InnoDBDialect",
-              "spring.jpa.hibernate.ddl-auto" : "update"
-            }'
-    build:
-      context: "./"
-      dockerfile: "Dockerfile"
+    restart: always
+
     depends_on:
-      mysqldb:
+      db:
         condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/airport?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
 

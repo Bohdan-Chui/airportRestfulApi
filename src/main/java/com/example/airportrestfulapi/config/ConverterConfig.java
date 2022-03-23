@@ -9,8 +9,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class ConverterConfig implements WebMvcConfigurer {
     /*
-    * adding custom converter String -> Status enum
-    * */
+     * adding custom converter String -> Status enum
+     * */
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new StringToEnumConverter());

@@ -4,18 +4,26 @@ import com.example.airportrestfulapi.model.Airplane;
 import com.example.airportrestfulapi.service.AirplaneService;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /*
  * Custom controller (airplaneId -> to airplane object)
  * */
+@Component
 public class AirplaneIdToObject implements org.springframework.core.convert.converter.Converter<Integer, Airplane>,
-        com.fasterxml.jackson.databind.util.Converter<Integer,Airplane> {
+        com.fasterxml.jackson.databind.util.Converter<Integer, Airplane> {
+
+    private final AirplaneService airplaneService;
 
     @Autowired
-    private AirplaneService airplaneService;
+    public AirplaneIdToObject(AirplaneService airplaneService) {
+        this.airplaneService = airplaneService;
+    }
 
     @Override
-    public Airplane convert(Integer source) {
+    public Airplane convert(@NotNull Integer source) {
         return airplaneService.getPlane(source);
     }
 

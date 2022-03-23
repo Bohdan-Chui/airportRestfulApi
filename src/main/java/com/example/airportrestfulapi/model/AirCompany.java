@@ -1,15 +1,17 @@
 package com.example.airportrestfulapi.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -19,14 +21,33 @@ public class AirCompany {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(name = "name", unique = true)
-    @NonNull
+//    @NonNull
+//    @NotBlank
     private String name;
+
     @Column(name = "company_type")
-    @NonNull
+//    @NonNull
+//    @NotBlank
     private String companyType;
+
     @Column(name = "founded_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @NonNull
+//    @NotBlank
     private LocalDate foundedAt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AirCompany that = (AirCompany) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
