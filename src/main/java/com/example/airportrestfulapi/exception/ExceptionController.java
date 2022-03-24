@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,5 +56,17 @@ public class ExceptionController {
     @ExceptionHandler(EmptyResultDataAccessException.class)
     public String handleEmptyResultDataAccessException(RuntimeException ex) {
         return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(EntityExistsException.class)
+    public String handleEntityExistsException(RuntimeException ex) {
+        return ex.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public String handleSQLIntegrityConstraintViolationException(RuntimeException ex) {
+        return ex.getMessage() + "Choose another element";
     }
 }

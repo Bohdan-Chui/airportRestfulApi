@@ -2,12 +2,14 @@ package com.example.airportrestfulapi.controller;
 
 import com.example.airportrestfulapi.model.AirCompany;
 import com.example.airportrestfulapi.service.AirCompanyService;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -52,7 +54,8 @@ public class AirCompanyController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<HttpStatus> geleteCompany(@PathVariable Integer id) {
         airCompanyService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity
+                .ok(HttpStatus.OK);
     }
 
 }

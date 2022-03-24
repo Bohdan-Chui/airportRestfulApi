@@ -3,16 +3,13 @@ package com.example.airportrestfulapi.model;
 import com.example.airportrestfulapi.converter.AircompanyIdToObject;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.*;
-import org.hibernate.Hibernate;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
-import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -33,18 +30,12 @@ public class Airplane {
     private String factorySerialNumber;
 
     @Column(name = "number_flights")
-//    @NonNull
-//    @NotBlank
     private Integer numberOfFlights;
 
     @Column(name = "flight_distance")
-//    @NonNull
-//    @NotBlank
     private Integer flightDistance;
 
     @Column(name = "fuel_capacity")
-//    @NonNull
-//    @NotBlank
     private Integer fuelCapacity;
 
     @Column(name = "type")
@@ -53,24 +44,10 @@ public class Airplane {
     private String type;
 
     @Column(name = "created_date")
-//    @NonNull
-//    @NotBlank
     private LocalDate createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonDeserialize(converter = AircompanyIdToObject.class)
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     private AirCompany airCompany;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Airplane airplane = (Airplane) o;
-        return id != null && Objects.equals(id, airplane.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 }

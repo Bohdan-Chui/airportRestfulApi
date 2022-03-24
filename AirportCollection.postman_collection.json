@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ae5e23b9-febe-4e08-a473-dbf01d986814",
+		"_postman_id": "95cc58af-b09d-4402-894f-1e456ec94424",
 		"name": "AirportCollection",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -295,7 +295,10 @@
 			"name": "Oprional",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": ""
+				}
 			},
 			"response": []
 		}
